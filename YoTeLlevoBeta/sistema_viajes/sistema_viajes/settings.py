@@ -7,7 +7,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dh*%03&o%nmw=rj6jd5ve
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'tu_usuario.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'Ansmasty']
 
 
 # Application definition
