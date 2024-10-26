@@ -1,0 +1,519 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styleVistaPerfilUsuario.css' %}">
+</head>
+<body>
+    <div class="super-wrapper">
+        <div class="mini-wrapper">
+            <button class="boton-menu-desplegable" title="Menu Usuario">
+                <img src="{% static 'images/menu-regular-24.png' %}" alt="Logo Inacap" class="bx bx-menu" title="Menu desplegable">
+                <box-icon name='menu' color='#ffffff' ></box-icon>
+            </button>
+            <h1>Mi Perfil</h1>
+            <button class="boton-notificacion" title="Notificaciones(En Construccion)"><i class='bx bx-bell'></i></button>
+        </div>
+        <nav class="menu-desplegable">
+            <ul>
+                <li><a href="#" onclick="window.location.href='{% url 'homeConductor' %}'" style="cursor: pointer;">Pagina Principal</a></li>
+                <li><a href="#" onclick="window.location.href='{% url 'destinoConductor' %}'" style="cursor: pointer;">Mis destinos</a></li>
+                <li><a href="#" id="Menu-configuracion">Configuracion</a></li>
+                <li><a href="#" id="Menu-acc">Accesibilidad (En Construccion)</a></li>
+                <li><a href="#" style="color: red;" id="Cerrar-sesion">Cerrar Sesion</a></li>
+            </ul>
+        </nav>
+
+        <div class="wrapper">
+            <div class="perfil-content">
+                <div class="perfil-avatar">
+                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" id="perfil-avatar-img" class="rounded-circle img-fluid" width="150">
+                <br>
+                <button class="btn btn-primary mt-3" id="change-avatar">Cambiar Imagen</button>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+            <div class="perfil-info mt-4">
+                <form class="user" method="post" id="form-registro" action="/editar_usuario_conductor/">
+                    {% csrf_token %}
+                    <h1>Editar Perfil</h1>
+                    <div class="input-box">
+                        <p>Nombre de usuario</p>
+                        <input type="text" id="usuario-registro" name="username" placeholder="{{usuario.username}}">
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <p>Carrera</p>
+                        <input type="text" id="carrera" name="carrera" placeholder="{{usuario.carrera}}">
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <p>Sede</p>
+                        <input type="text" id="sede" name="sede" placeholder="{{usuario.sede}}">
+                        <i class='bx bxs-building'></i>
+                    </div>
+                    <div class="input-box">
+                        <p>Descripción Vehículo</p>
+                        <textarea id="vehiculo" name="vehiculo" placeholder="{{usuario.vehiculo}}"></textarea>
+                        <i class='bx bxs-car'></i>
+                    </div>
+                    <div class="input-box">
+                        <p>Patente</p>
+                        <input type="text" id="patente" name="patente" placeholder="{{usuario.patente}}">
+                        <i class='bx bxs-car'></i>
+                    </div>
+                    <div class="input-box">
+                        <p>Telefono</p>
+                        <input type="text" id="telefono" name="telefono" placeholder="{{usuario.telefono}}">
+                        <i class='bx bxs-phone'></i>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button class="boton-footer" type="submit">Guardar Cambios</button>
+                        <button class="boton-footer" disabled>Ver Historial(En Construcción)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+            
+                
+
+
+
+    <!--Modal que se activa al clickear cerrar sesion, donde pregunte si desea ¿cerrar sesion? -->
+    <div class="modal fade" id="modal-cerrar-sesion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cerrar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea cerrar sesión?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="post" action="/CerrarSesion/">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                    </form>
+                </div>    
+            </div>
+        </div>        
+    </div>
+
+    <!--Modal que muestra configuracion de la aplicacion-->
+    <div class="modal fade" id="modal-configuracion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Configuración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Configuración de la aplicación</p>
+                    
+                    <!-- Selección de idioma -->
+                    <div class="mb-3">
+                        <label for="select-idioma" class="form-label">Idioma:</label>
+                        <select id="select-idioma" class="form-select">
+                            <option value="es">Español</option>
+                            <option value="en">Inglés</option>
+                            <option value="pt">Portugués</option>
+                        </select>
+                    </div>
+    
+                    <!-- Activar/desactivar notificaciones -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="notificaciones" checked>
+                        <label class="form-check-label" for="notificaciones">
+                            Activar notificaciones (En Construccion)
+                        </label>
+                    </div>
+    
+                    <!-- Cambiar contraseña -->
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary" type="button" id="cambiar-password">
+                            Cambiar contraseña
+                        </button>
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-outline-danger" type="button" id="eliminar-cuenta">
+                            Eliminar cuenta
+                        </button>
+                    </div>
+    
+                    <!-- Información de la aplicación -->
+                    <div class="mb-3">
+                        <p>Versión de la aplicación: 1.0.0</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para cambiar contraseña -->
+     <!-- Modal para cambiar contraseña -->
+     <div class="modal fade" id="modal-cambiar-password">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" method="post" id="form-cambiar-contraseña">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="password-actual" class="form-label">Contraseña actual:</label>
+                            <input type="password" id="password-actual" class="form-control" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password-nueva" class="form-label">Nueva contraseña:</label>
+                            <input type="password" id="password-nueva" class="form-control" name="password_nueva" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password-confirmar" class="form-label">Confirmar contraseña:</label>
+                            <input type="password" id="password-confirmar" class="form-control" name="confirmar_password" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger" id="error-message" style="color: red;" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Modal para eliminar cuenta-->
+    <div class="modal fade" id="modal-eliminar-cuenta">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Cuenta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user" method="post" id="form-eliminar-cuenta">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="password-actual" class="form-label">Contraseña actual:</label>
+                            <input type="password" id="password-actual" class="form-control" name="password" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar cuenta</button>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger" id="error-message" style="color: red;" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modal-acc">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Accesibilidad (En Construccion)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Opciones de accesibilidad (En Construccion)</p>
+    
+                    <!-- Modo Claro/Oscuro -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="modo-claro">
+                        <label class="form-check-label" for="modo-claro">
+                            Modo Claro
+                        </label>
+                    </div>
+                    <!-- Modo Daltonismo -->
+                    <div class="mb-3">
+                        <label for="select-daltonismo" class="form-label">Modo Daltonismo:</label>
+                        <select id="select-daltonismo" class="form-select">
+                            <option value="ninguno" selected>Ninguno</option>
+                            <option value="protanopia">Protanopia</option>
+                            <option value="deuteranopia">Deuteranopia</option>
+                            <option value="tritanopia">Tritanopia</option>
+                        </select>
+                    </div>
+        
+                    <!-- Asistente de Voz para Ciegos -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="asistente-voz">
+                        <label class="form-check-label" for="asistente-voz">
+                            Habilitar Asistente de Voz
+                        </label>
+                    </div>
+        
+                    <!-- Aumentar Tamaño de Fuente -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="aumentar-fuente">
+                        <label class="form-check-label" for="aumentar-fuente">
+                            Aumentar Tamaño de Fuente
+                        </label>
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="guardar-accesibilidad">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+<script>
+    document.getElementById('Menu-acc').addEventListener('click', function(){
+        $('#modal-acc').modal('show');
+    });
+
+</script>
+
+<script>
+    const botonMenu = document.querySelector('.boton-menu-desplegable');
+    const menuDesplegable = document.querySelector('.menu-desplegable');
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.addEventListener('wheel', function(e) {
+        const delta = e.deltaY;
+    
+        const isScrolledToTop = wrapper.scrollTop === 0 && delta < 0;
+        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight && delta > 0;
+    
+        if (isScrolledToTop) {
+            // Permite el scroll del documento principal si ya está en la parte superior
+            e.preventDefault();
+            window.scrollBy(0, -1000); // Scroll hacia arriba en el documento principal
+        } else if (isScrolledToBottom) {
+            // Permite el scroll del documento principal si ya está en la parte inferior
+            e.preventDefault();
+            window.scrollBy(0, 1000); // Scroll hacia abajo en el documento principal
+        }
+    });
+
+    botonMenu.addEventListener('click', () => {
+        menuDesplegable.classList.toggle('show');
+        if (menuDesplegable.classList.contains('show')) {
+            wrapper.style.display = 'none';
+        } else {
+            wrapper.style.display = 'block';
+        }
+    });
+
+    // Cambiar imagen de perfil
+    const changeAvatarBtn = document.getElementById('change-avatar');
+    const avatarUpload = document.getElementById('avatar-upload');
+    const avatarImg = document.getElementById('perfil-avatar-img');
+
+    changeAvatarBtn.addEventListener('click', () => {
+        avatarUpload.click();
+    });
+
+    avatarUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                avatarImg.src = e.target.result; // Cambia la imagen de perfil al archivo cargado
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('Cerrar-sesion').addEventListener('click', function(){
+        $('#modal-cerrar-sesion').modal('show');
+    });
+</script>
+
+<script>
+    document.getElementById('Menu-configuracion').addEventListener('click', function(){
+        $('#modal-configuracion').modal('show');
+    });
+</script>
+
+<script>
+    document.getElementById('cambiar-password').addEventListener('click', function(){
+        $('#modal-cambiar-password').modal('show');
+    });
+</script>
+
+<script>
+    document.getElementById('eliminar-cuenta').addEventListener('click', function(){
+        $('#modal-eliminar-cuenta').modal('show');
+    });
+</script>
+
+<script>
+    document.getElementById('modo-claro').addEventListener('change', function() {
+    const isChecked = this.checked;
+    if (isChecked) {
+        document.body.classList.add('modo-claro'); // Añade la clase para modo claro
+    } else {
+        document.body.classList.remove('modo-claro'); // Quita la clase para modo claro
+    }
+
+
+});
+
+document.getElementById('guardar-accesibilidad').addEventListener('click', function() {
+    $('#modal-acc').modal('hide');
+});
+
+
+
+</script>
+
+<script>
+document.getElementById('avatar-upload').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const avatarImg = document.getElementById('perfil-avatar-img');
+            avatarImg.src = e.target.result; // Cambia la imagen de perfil al archivo cargado
+            localStorage.setItem('avatarImage', e.target.result); // Guarda la imagen en local storage
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Cargar la imagen desde el local storage al cargar la página
+window.addEventListener('load', () => {
+    const savedImage = localStorage.getItem('avatarImage');
+    if (savedImage) {
+        document.getElementById('perfil-avatar-img').src = savedImage;
+    }
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('form-cambiar-contraseña');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío estándar del formulario
+
+            const formData = new FormData(form);
+
+            fetch('/CambiarContraseña/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: data.message + ', ahora serás redirigido a la página principal',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = "{% url 'login' %}"; // Reemplazar por la URL de la página principal
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud. Inténtalo nuevamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('form-eliminar-cuenta');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío estándar del formulario
+
+            const formData = new FormData(form);
+
+            fetch('/EliminarCuenta/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: data.message + ', ahora serás redirigido a la página de inicio de sesión',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = "{% url 'VistaInicioDeSesion' %}"; // Redirigir a la URL de inicio de sesión
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ocurrió un error al procesar la solicitud. Inténtalo nuevamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+    });
+</script>
+
+
+</html>
