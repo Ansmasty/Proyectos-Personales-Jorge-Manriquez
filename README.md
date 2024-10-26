@@ -1,1 +1,0 @@
-# Proyectos-Personales-Jorge-Manriquez
