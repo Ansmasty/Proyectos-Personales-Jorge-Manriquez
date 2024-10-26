@@ -1,0 +1,437 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background: white;
+    background: url('../images/Leonardo_Phoenix_The_image_should_feature_a_city_at_night_with_3.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.super-wrapper{
+    display: relative;
+    width: 100%;
+    max-width: 1920px;
+    height: 1080px;
+    border: 2px solid rgb(3, 3, 3);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mini-wrapper{
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-top: 0%;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background-color: #fffefe;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+}
+.mini-wrapper img{
+    width: 30px;
+}
+
+.mini-wrapper form{
+    width: 90%;
+    height: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.wrapper{
+    width: 90%;
+    max-width: 1200px;
+    height: 800px;
+    background-color: #131212fa;
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: rgba(235, 234, 234, 0.801);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: auto;
+}
+
+/* Estilo para el scrollbar de .wrapper */
+.wrapper::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+}
+
+.wrapper::-webkit-scrollbar-track {
+    background: #1b1a1ae1; /* Color de fondo del track */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+    background-color: #fcfcfc; /* Color del thumb */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 3px solid #1b1a1ae1; /* Espacio alrededor del thumb */
+}
+
+.wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #ffffff; /* Color del thumb al pasar el mouse */
+}
+
+
+.wrapper h1{
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    background: #1b1a1ae1;
+    border-radius: 10px;
+    padding: 20px 30px;
+}
+
+.linea-divisora{
+    width: 100%;
+    height: 1px;
+    background: #fb0202;
+    /* alargar la linea divisora */
+    margin-bottom: 20px;
+
+
+}
+
+.viaje{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    background: rgb(24, 14, 14);
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-top: 2%;
+    border: 2px solid white;
+    color: rgb(235, 234, 234);
+}
+
+
+.boton-menu-desplegable {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.boton-menu-desplegable i{
+   width: 100%;
+    height: 100%;
+}
+
+
+.menu-desplegable {
+    display: flex;
+    flex-direction: column;
+    width: auto; /* Hace que el menú ocupe todo el ancho del contenedor */
+    height: 500px; /* Altura automática para ajustarse al contenido */
+    max-height: 0; /* Altura inicial del menú para que esté colapsado */
+    overflow: hidden; /* Oculta el contenido cuando el menú está cerrado */
+    opacity: 0; /* Opacidad inicial para la animación */
+    transition: max-height 0.3s ease, opacity 0.3s ease; /* Transiciones para suavidad */
+    background: #2e2d2d;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-top: 1%;
+    text-align: left;
+    padding: 0 20px; /* Ajusta el padding cuando está oculto */
+    z-index: 100; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.menu-desplegable.show {
+    max-height: 500px; /* Ajusta a la altura total del menú cuando se despliega */
+    opacity: 1; /* Muestra el menú */
+    overflow: visible;
+}
+
+
+.menu-desplegable ul li{
+    list-style: none;
+    padding: 10px 20px;
+    border-bottom: 1px solid #fe0000;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.menu-desplegable ul li a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.input-buscar {
+    position: relative;
+    width: 300px;
+    height: 40px;
+    background: rgb(228, 227, 227);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(118, 117, 117, 0.1);
+    font-size: 14px;
+    color: #080808;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 8px;
+}
+
+
+.boton-borrar{
+    width: 80px;
+    height: 40px;
+    background: #fcfcfc;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    color: #0e0e0e;
+   
+}
+
+
+.boton-notificacion{
+    width: 50px;
+    height: 40px;
+    background: #fcfcfc;
+    justify-content: right;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    color: #020202;
+}
+
+.boton-reservar {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: 5px;
+    border: 2px solid white;
+}
+
+
+.boton-detalles {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: 5%;
+    border: 2px solid white;
+
+}
+
+.modal-content {
+    text-align: justify;
+    overflow: scroll;
+    height: 600px;
+    width: 100%;
+    max-width: 800px;
+    background-color: #f7f7f7;
+    border: 2px solid #ff0000;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5%;
+
+}
+
+.modal-content img{
+    width: 20%;
+    height: auto;
+}
+
+.col-md-6{
+    width: auto;
+    height: auto;
+}
+
+.col-md-6 ul{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.col-md-6 ul li { /* lista hacia la derecha */
+    list-style: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+    .super-wrapper {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .wrapper {
+        max-width: 90%;
+        height: 600px;
+        padding: 10px 15px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: scroll;
+        scrollbar-color: red;
+    }
+
+    .side-bar {
+        width: 100%;
+        height: 10%;
+        padding: 10px 15px;
+    }
+
+    .mini-wrapper {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px 15px;
+        margin-top: 1%;
+    }
+
+    .mini-wrapper img {
+        width: 20px;
+    }
+
+    .boton-menu-desplegable, 
+    .input-buscar, 
+    .boton-borrar, 
+    .boton-notificacion {
+        width: 100%;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .input-buscar {
+        width: 75%;
+    }
+
+    .boton-borrar {
+        width: 18%;
+    }
+    
+    .boton-notificacion {
+        width: 18%;
+    }
+    .boton-menu-desplegable {
+        width: 10%;
+        height: auto;
+    }
+    .boton-menu-desplegable i{
+        width: 100%;
+        height: 100%;
+    }
+
+    .modal-content {
+        height: auto;
+        max-width: 350px;
+        width: auto;
+      }
+}
+
+
+@media (max-width: 480px) {
+    .super-wrapper {
+        max-width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .wrapper {
+        max-width: 100%;
+        height: 450px;
+        padding: 10px;
+    }
+
+    .mini-wrapper {
+        padding: 5px 10px;
+    }
+
+    .boton-menu-desplegable, 
+    .input-buscar, 
+    .boton-borrar, 
+    .boton-notificacion {
+        font-size: 10px;
+        height: 35px;
+    }
+
+    .input-buscar {
+        padding-left: 8px;
+    }
+
+    .boton-menu-desplegable{
+        width: 45px;
+        height: 30px;
+    }
+
+    .menu-desplegable{
+        width: 350px;
+        height: 500px;
+        margin-top: 20px;
+        padding-left: 1px;
+    }
+    .viaje{
+        margin-top: 5%;
+    }
+
+    .modal-content {
+        height: auto;
+        max-width: 350px;
+        width: auto;
+      }
+}
