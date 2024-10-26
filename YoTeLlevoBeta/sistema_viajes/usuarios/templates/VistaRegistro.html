@@ -1,0 +1,204 @@
+<!-- registro.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styleSesion.css' %}">
+</head>
+<body>
+    <div class="super-wrapper">
+        <div class="wrapper">
+            <a href="{% url 'login' %}" class='bx bx-arrow-back volver-inicio btn btn-danger d-flex justify-content-center align-items-center' id="boton-volver-reg">Volver</a>
+            <form class="user" method="post" id="form-registro" action="/RegistrarUsuario/">
+                <!-- CSRF token for security este token nos permite la seguridad de los usuarios en el formulario-->
+                {% csrf_token %}
+                <h1>Registro</h1>
+                <div class="input-box">
+                    <input type="text" id="usuario-registro" name="username" placeholder="Nombre de usuario" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="nombre-completo" name="nombre_completo" placeholder="Nombre Completo" required>
+                    <i class='bx bxs-user-detail'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="correo-registro" name="email" placeholder="Correo Institucional" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <select id="carrera-registro" name="carrera"required>
+                        <option value="" disabled selected class="option-usuario">Selecciona tu carrera</option>
+                        <option value="Analista Programador" class="option-usuario">Analista Programador</option>
+                        <option value="Por añadir" class="option-usuario" disabled>Por añadir</option>
+                    </select>
+                    <i class='bx bxs-graduation'></i>
+                </div>
+                <div class="input-box">
+                    <select id="sede-registro" name="sede"required>
+                        <option value="" disabled selected class="option-usuario">Selecciona una sede</option>
+                        <option value="San Pedro de la Paz" class="option-usuario">San Pedro de la Paz</option>
+                        <option value="Mas sedes proximamente"class="option-usuario" disabled>Proximamente</option>
+                    </select>
+                    <i class='bx bxs-building'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="contraseña-registro" name="password" placeholder="Contraseña" required>
+                    <i class="bx bxs-lock"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="confirmar-contraseña" name="password2" placeholder="Confirmar Contraseña" required>
+                    <i class="bx bxs-lock"></i>
+                </div>
+                <div class="terminos-check">
+                    <label><input type="checkbox" required> Acepto los <a href="#" id="terminos-link">Terminos de uso y Condiciones</a></label>
+                    <label><input type="checkbox" required> Acepto la <a href="#" id="privacidad-link">Politica de Privacidad</a></label>
+                </div>
+                <div>
+                    <button type="submit" class="boton">Registrarse</button>
+                </div>
+                {% if error %}
+                    <div class="alert alert-danger" id="error-message" style="color: red;" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        <div class="footer-posicion">
+            <img src="{% static 'images/logo-blanco-mobile.png' %}" alt="Logo Inacap">
+            <footer><p>Hecho por estudiantes y para estudiantes</p></footer>
+        </div>
+    </div>
+    <div class="modal fade" id="terminosModal" tabindex="-1" aria-labelledby="terminosLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="terminosLabel">TERMINOS DE USO Y CONDICIONES</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mt-4">
+                    <p><strong>Terminos de uso y condiciones YO TE LLEVO</strong></p>
+                    <p>
+                        'Por medio del presente documento, YO TE LLEVO pone a disposición de sus usuarios su Política de Privacidad, la cual se encuentra en armonía con la normativa vigente sobre Protección de Datos Personales (Ley N° 19.628). A continuación, se señalan las finalidades del tratamiento de la información que nos puedas suministrar, quiénes son los encargados de tratarla, el tiempo de almacenamiento en nuestros bancos de datos, las medidas de seguridad y los medios para ejercer tus derechos como titular de los Datos Personales.
+                    </p>
+                    <p>
+                        <p><strong> A. ¿De quiénes recopilamos información?</strong></p>
+                        Si eres usuario, recolectamos la información que nos proporcionas voluntariamente a través del formulario de contacto, u otro medio por el cual te comuniques, incluyendo nombre, apellido, correo electrónico y teléfono, que resulta necesaria para contactarnos contigo y cumplir con los fines que se detallan más adelante.
+                        En caso de manifestar un usuario que no desea recibir dicha información, sus datos personales serán almacenados en nuestro banco de “Usuarios” únicamente con la finalidad de, y por el tiempo necesario para atender sus requerimientos, tales como cotizaciones, consultas varias, sugerencias, entre otros.
+                        Si eres cliente, recopilamos datos de identificación y de contacto que pedimos en nuestros formularios web y/o en nuestras órdenes de trabajo, así como en los demás documentos necesarios para cumplir con nuestras obligaciones legales y contractuales, incluyendo aquellas previstas en el Ley N°19.496, Ley de Protección de los Derechos de los Consumidores. Tanto si eres cliente como si vienes en representación de alguno, tus datos serán ingresados a nuestro banco de “Clientes”.
+                    </p>
+                    <p>
+                        <p><strong>B. ¿Cómo protegemos tu información?</strong></p>
+                        YO TE LLEVO ha adoptado todas las medidas técnicas, legales y organizacionales necesarias para garantizar la seguridad y el adecuado procesamiento de tus datos personales; así como para evitar cualquier manipulación indebida, pérdida accidental, destrucción o acceso no autorizado de terceros.
+                        Tu información no será jamás vendida ni comercializada, ni utilizada para fines ajenos a los que se describen a continuación. En cualquier caso, YO TE LLEVO ha adoptado medidas razonables para garantizar la conservación de la información únicamente durante el tiempo necesario para la finalidad con que se recopiló, para su procesamiento, o más tiempo si se exige en virtud de un contrato o legislación aplicable, o para fines estadísticos.
+                    </p>
+                    <p>
+                        <p><strong>C. ¿Con qué finalidad utilizamos tu información?</strong></p>
+                        Si nos has contactado por la página web para realizar consultas o sugerencias, tus datos personales serán utilizados para: (i) remitir a tu correo electrónico o teléfono la información que nos has solicitado sobre los productos ofrecidos por YO TE LLEVO, así como (ii) dar trámite a tus consultas, solicitudes, sugerencias, reclamos o quejas.
+                        Si eres cliente, tus datos personales serán utilizados para: (i) procesar la prestación del servicio; (ii) establecer un canal de comunicación respecto del envío del servicio adquirido u otras condiciones relacionadas a nuestras prestaciones; (iii) realizar gestiones de cobranza; (iv) contactarte en caso de que hubiera sugerencias, preguntas, quejas o reclamos; y (v) dar cumplimiento a todas las demás obligaciones legales y contractuales de YO TE LLEVO.
+                        Asimismo, al enviar tus datos mediante el formulario de contacto autorizas a incorporarlos en nuestro banco de “Prospección comercial”, para las siguientes finalidades: (i) contactarte y enviarte información sobre productos y otros complementarios que pudieran ser de su interés; (ii) comunicar sobre promociones, beneficios, concursos, ofertas; (iii) hacer seguimiento a tus cotizaciones; y, (iv) en general, realizar publicidad y prospección comercial. Asimismo, podremos contactarte para realizar encuestas de satisfacción, análisis de consumo, preferencias y tendencias de mercado. En todo caso, se hace presente que, en cualquier momento, los usuarios o clientes podrán solicitar la suspensión del envío de las comunicaciones publicitarias o comerciales, de conformidad al artículo 28 B de la Ley 19.496.
+                    </p>
+                    <p>
+                        <p><strong>D. ¿Quién tiene acceso a tu información?</strong></p>
+                        YO TE LLEVO no podrá vender, bajo ningún concepto, los datos personales recopilados en el ejercicio de su actividad.
+                        <p>
+                            <p><strong>E. ¿Cómo puedes ejercer tus derechos como titular de Datos Personales?</strong></p>
+                            YO TE LLEVO reconoce y garantiza el ejercicio de los derechos de acceso, rectificación, cancelación, oposición y demás previstos en la Ley N°19.628. Para ejercer los derechos antes mencionados puedes remitir una comunicación al correo electrónico contacto@yotellevo.cl o enviar una carta a General del Canto N°50, Of.301, Providencia, Región Metropolitana. En caso de que Infinity ROL no responda a las solicitudes en un tiempo prudente o las deniegue, los titulares de los datos tienen el derecho a recurrir ante los tribunales de justicia correspondientes.
+                        </p>
+                        <p>
+                            <p><strong>F. ¿Qué herramientas de navegación se utilizan en la página web de YO TE LLEVO?</strong></p>
+                            Como toda página web, YO TE LLEVO  puede usar herramientas de recopilación de información como las cookies para recolectar cierta información con fines estadísticos mientras navegas por nuestra página web. En esta sección, describimos los tipos de información que YO TE LLEVO puede colectar y cómo puede usar esta información.
+                            a) Dirección IP: una dirección de Protocolo de Internet (IP por sus siglas en inglés) es un número que se genera automáticamente de tu computador cuando navegas en la web. Tu dirección IP es usada para recopilar información demográfica, es decir, para saber de qué parte del mundo vienen las visitas a la página web. Infinity ROL puede recopilar la dirección IP con el fin de identificar el volumen de uso de la página web.
+                            b) Cookies: podremos ubicar un archivo de texto llamado “cookie” en los archivos del navegador de tu computadora. Una cookie es un pequeño archivo de datos que se almacena en tu disco duro para el mantenimiento de registros cuando los visita. Podemos usar las cookies para distintas finalidades, que incluyen entender y guardar las preferencias del usuario para futuras visitas, y actualizar nuestro sitio web basados en información como el número de visitantes y las páginas vistas. Puedes escoger que tu computador te avise cada vez que se le envía una cookie, o puedes optar por apagar todas las cookies. Puedes hacerlo a través de las herramientas de tu buscador explorador (Ej. Google Chrome, Firefox, Edge). Cada explorador es distinto, por lo cual te recomendamos buscar en la sección de Ayuda de su menú para aprender acerca de la manera correcta de modificar sus cookies. No se requiere tener las cookies activadas para usar nuestra página web.
+                        </p>
+                        <p>
+                            <p><strong>G. Actualizaciones de la presente política de privacidad</strong></p>
+                            Con motivo de la mejora continua de nuestros procesos, YO TE LLEVO podrá realizar correcciones y actualizaciones a esta Política de Privacidad.'
+                        </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+    <div class="modal fade" id="privacidadModal" tabindex="-1" aria-labelledby="privacidadLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacidadLabel">POLITICA DE PRIVACIDAD</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mt-4">
+                    <p><strong>Politica de privacidad  YO TE LLEVO</strong></p>
+                    <p>
+                        <p> Prototipo en progreso... Estamos trabajando para garantizar tu privacidad</p>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+    const botonMenu = document.querySelector('.boton-menu-desplegable');
+    const menuDesplegable = document.querySelector('.menu-desplegable');
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.addEventListener('wheel', function(e) {
+        const delta = e.deltaY;
+    
+        const isScrolledToTop = wrapper.scrollTop === 0 && delta < 0;
+        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop === wrapper.clientHeight && delta > 0;
+    
+        if (isScrolledToTop) {
+            // Permite el scroll del documento principal si ya está en la parte superior
+            e.preventDefault();
+            window.scrollBy(0, -1000); // Scroll hacia arriba en el documento principal
+        } else if (isScrolledToBottom) {
+            // Permite el scroll del documento principal si ya está en la parte inferior
+            e.preventDefault();
+            window.scrollBy(0, 1000); // Scroll hacia abajo en el documento principal
+        }
+    });
+    botonMenu.addEventListener('click', () => {
+        console.log('Botón de menú clickeado'); // Verifica si el evento se ejecuta
+        menuDesplegable.classList.toggle('show'); // Alterna la clase 'show' para mostrar/ocultar el menú
+    
+        // Alterna la visibilidad del wrapper
+        if (menuDesplegable.classList.contains('show')) {
+            wrapper.style.display = 'none';
+        } else {
+            wrapper.style.display = 'block';
+        }
+    });
+    </script>
+
+    <script>
+    document.getElementById('terminos-link').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita que el enlace recargue la página
+        $('#terminosModal').modal('show'); // Muestra el modal de términos
+    });
+
+    document.getElementById('privacidad-link').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita que el enlace recargue la página
+        $('#privacidadModal').modal('show'); // Muestra el modal de privacidad
+    });
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</html>
